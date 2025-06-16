@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Day & Night Toggle</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+
+    img {
+      width: 200px;
+      height: auto;
+      transition: 0.3s;
+    }
+    img:hover {
+  box-shadow: 0 0 20px 5px rgba(0,0,0,0.6);
+  border: px solid black;
+}
+
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>🌞 Day and Night Image Toggle</h2>
+  
+  <!-- Daytime image initially -->
+  <img id="dayNightImage" src="pic_bulbon.gif" alt="Day Image"
+       onmouseover="addShadow()" onmouseout="removeShadow()"/>
+
+  <br>
+  <button id="toggleBtn" onclick="toggleImage()">Night</button>
+
+  <script>
+    let isDay = true;
+
+    function toggleImage() {
+      const img = document.getElementById("dayNightImage");
+      const btn = document.getElementById("toggleBtn");
+
+      if (isDay) {
+        img.src = "pic_bulboff.gif"; // night image
+        btn.textContent = "Day";
+        isDay = false;
+      } else {
+        img.src = "pic_bulbon.gif"; // day image
+        btn.textContent = "Night";
+        isDay = true;
+      }
+    }
+
+    function addShadow() {
+      const img = document.getElementById("dayNightImage");
+      img.style.boxShadow = "0 0 20px 5px rgba(0,0,0,0.6)";
+      img.style.border = "2px solid black";
+    }
+
+    function removeShadow() {
+      const img = document.getElementById("dayNightImage");
+      img.style.boxShadow = "none";
+      img.style.border = "none";
+    }
+  </script>
+
+</body>
+</html>
