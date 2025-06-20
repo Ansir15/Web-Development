@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dynamic Element Creator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+    }
+
+    #content {
+      margin-top: 30px;
+
+    }
+
+    .block {
+      background-color: #7adf53;
+      padding: 15px;
+      border: 1px solid #7a41e2;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+    }
+
+    h2 {
+      color: #e76b6b;
+    }
+
+    h3 {
+      color: #8d4141;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>➕ Add Custom Heading and Paragraph</h2>
+  <button onclick="addNewElements()">Add Element</button>
+
+  <div id="content"></div>
+
+  <script>
+    function addNewElements() {
+      // 1. Prompt the user
+      const headingType = prompt("Enter heading level (e.g., h1, h2, h3):", "h2");
+      const headingText = prompt("Enter text for the heading:");
+      const paragraphText = prompt("Enter paragraph text:");
+
+      // 2. Validate heading type
+      const validHeadings = ["h1", "h2", "h3", "h4", "h5", "h6"];
+      if (!validHeadings.includes(headingType)) {
+        alert("Invalid heading level. Please enter from h1 to h6.");
+        return;
+      }
+
+      // 3. Create elements
+      const heading = document.createElement(headingType);
+      heading.textContent = headingText;
+
+      const paragraph = document.createElement("p");
+      paragraph.textContent = paragraphText;
+
+      // 4. Create container and append elements
+      const block = document.createElement("div");
+      block.className = "block";
+      block.appendChild(heading);
+      block.appendChild(paragraph);
+
+      document.getElementById("content").appendChild(block);
+    }
+  </script>
+
+</body>
+</html>

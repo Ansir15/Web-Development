@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DOM Full Example</title>
+</head>
+<body>
+
+  <div id="box">original text here</div>
+
+  <!-- Buttons -->
+  <button onclick="changetext()">Change Text</button>
+  <button onclick="changestyle()">Change Style</button>
+  <button onclick="addElement()">Add New Paragraph</button>
+  <button onclick="removeBox()">Remove Box</button>
+
+  <div id="container"></div>
+
+  <script>
+    function changetext() {
+      document.getElementById("box").textContent = "changed text";
+    }
+
+    function changestyle() {
+      const box = document.getElementById("box");
+      box.style.color = "red";
+      box.style.backgroundColor = "lightyellow";
+      box.style.padding = "10px";
+      box.style.borderRadius = "5px";
+    }
+
+    function addElement() {
+      const container = document.getElementById("container");
+      const newPara = document.createElement("p");
+      newPara.textContent = "This is a new paragraph added!";
+      newPara.style.color = "blue";
+      container.appendChild(newPara);
+    }
+
+    function removeBox() {
+      const box = document.getElementById("box");
+      if (box) {
+        box.remove();
+      }
+    }
+  </script>
+
+</body>
+</html>

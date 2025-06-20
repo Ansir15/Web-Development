@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dynamic Content Replacement</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 50px;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      background: #e0b2b2;
+      margin: 10px 0;
+      padding: 15px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    li:hover {
+      background: #54ca95;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>📝 Click on any item to change it!</h2>
+  <ul id="itemList">
+    <li>🍕 Pizza</li>
+    <li>🍔 Burger</li>
+    <li>🍟 Fries</li>
+    <li>🥗 Salad</li>
+  </ul>
+  
+  <script>
+    // Get all <li> elements inside the list
+    const items = document.querySelectorAll("#itemList li");
+
+    // Loop through each item and add click event listener
+    items.forEach(function(item, index) {
+      item.addEventListener("click", function() {
+        // Change the content of clicked item
+        this.innerHTML = `<strong>✅ You clicked item ${index + 1}</strong>`;
+        this.style.background = "#cfe2ff";
+      });
+    });
+  </script>
+
+</body>
+</html>

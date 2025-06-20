@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="myBtn">Click Me</button>
+
+    <form id="Parent">
+        <input type="text" placeholder="Enter name">
+        <button id="child">Login</button>
+      </form>
+
+<script>
+
+    //  event object bn gia ha
+  const btn = document.getElementById("myBtn");
+
+  btn.addEventListener("click", function(event) {
+    console.log("Type:", event.type);              // click
+    console.log("Target:", event.target);          // jis element pr click hua
+    console.log("CurrentTarget:", event.currentTarget); // jis pr listener laga
+  });
+
+
+
+
+  // Event Default
+  btn.addEventListener("click", function(event) {
+    event.preventDefault();
+    console.log("Button clicked!");
+  });
+
+
+
+
+  // Event Bubbling
+  const parent = document.getElementById("parent");
+  const child = document.getElementById("child");
+
+  parent.addEventListener("click", function() {
+    console.log("Parent clicked!");
+  });
+
+  child.addEventListener("click", function(event) {
+    event.stopPropagation();
+    console.log("Child clicked!");  
+  })
+</script>
+
+</body>
+</html>

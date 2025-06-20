@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add and remove EventListner</title>
+</head>
+<body>
+    <!-- <button id="myBtn">Click Me</button>
+
+<script>
+  const btn = document.getElementById("myBtn");
+
+  btn.addEventListener("click", function () {
+    alert("Hello from addEventListener!");
+  });
+</script> -->
+
+<html>
+<head>
+  <title>Remove Event Listener Example</title>
+</head>
+<body>
+
+<!-- 2 buttons -->
+<button id="myBtn">Click Me</button>
+<button id="removeBtn">Remove Click Event</button>
+
+<script>
+  // Step 1: Button elements ko get karo
+  let btn = document.getElementById('myBtn');
+  let removeBtn = document.getElementById('removeBtn');
+
+  // Step 2: Ek function banao jo alert show kare
+  function showMsg() {
+    alert("Button was clicked!");
+  }
+
+  // Step 3: Pehle button (Click Me) pr event listener lagao
+  btn.addEventListener('click', showMsg);
+
+  // Step 4: Dusre button (Remove Click Event) pr bhi event lagao
+  removeBtn.addEventListener('click', function() {
+    // Click wale event ko hata do
+    btn.removeEventListener('click', showMsg);
+    alert("Click event removed from the button.");
+  });
+</script>
+
+</body>
+</html>
+
+</body>
+</html>

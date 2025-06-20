@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dynamic UI All Features</title>
+  <style>
+    /* Styling for toggle box */
+    .square {
+      width: 100px;
+      height: 100px;
+      background: gray;
+      margin-top: 10px;
+    }
+    .red {
+      background: red;
+    }
+
+    /* Styling for modal */
+    #modal {
+      display: none;
+      position: fixed;
+      top: 30%;
+      left: 30%;
+      background: white;
+      padding: 20px;
+      border: 1px solid black;
+    }
+
+    body {
+      font-family: Arial;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>✅ 1. Add List Item</h2>
+  <button onclick="addItem()">Add Item</button>
+  <ul id="itemList"></ul> <!-- 📌 List yahan nazar ayegi -->
+
+  <h2>✅ 2. Toggle Color (classList)</h2>
+  <button onclick="changeColor()">Toggle Color</button>
+  <div id="box" class="square"></div> <!-- 📌 Box yahan color change karega -->
+
+  <h2>✅ 3. Show/Hide Paragraph</h2>
+  <button onclick="toggleMessage()">Show/Hide</button>
+  <p id="msg" style="display: none;">Welcome to the site!</p> <!-- 📌 Show/Hide text -->
+
+  <h2>✅ 4. Modal Window</h2>
+  <button onclick="openModal()">Open Modal</button>
+  <div id="modal">
+    <p>This is a modal</p>
+    <button onclick="closeModal()">Close</button>
+  </div> <!-- 📌 Modal box -->
+
+  <h2>✅ 5. Greet User Input</h2>
+  <input type="text" id="nameInput" placeholder="Enter your name" />
+  <button onclick="greet()">Greet</button>
+  <p id="output"></p> <!-- 📌 Output greeting yahan ayega -->
+
+  <script>
+    // ✅ 1. Add List Item Code
+    function addItem() {
+      let li = document.createElement("li");
+      li.textContent = "New Product";
+      document.getElementById("itemList").appendChild(li);
+    }
+
+    // ✅ 2. Toggle Box Color Code
+    function changeColor() {
+      document.getElementById("box").classList.toggle("red");
+    }
+
+    // ✅ 3. Show/Hide Message Code
+    function toggleMessage() {
+      let p = document.getElementById("msg");
+      if (p.style.display === "none") {
+        p.style.display = "block";
+      } else {
+        p.style.display = "none";
+      }
+    }
+
+    // ✅ 4. Modal Open/Close Code
+    function openModal() {
+      document.getElementById("modal").style.display = "block";
+    }
+
+    function closeModal() {
+      document.getElementById("modal").style.display = "none";
+    }
+
+    // ✅ 5. User Input Greet Code
+    function greet() {
+      let name = document.getElementById("nameInput").value;
+      document.getElementById("output").textContent = "Hello, " + name;
+    }
+  </script>
+</body>
+</html>

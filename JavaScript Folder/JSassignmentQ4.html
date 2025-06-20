@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Interactive Form with Validation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+    }
+
+    form {
+      max-width: 400px;
+      padding: 20px;
+      border: 1px solid #140f0f;
+      border-radius: 8px;
+      background-color: #f8f4f8;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 8px;
+      border-radius: 4px;
+      border: 1px solid #141010;
+    }
+
+    .error {
+      color: red;
+      font-size: 14px;
+    }
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .success {
+      color: green;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>📝 User Feedback Form</h2>
+
+  <form id="feedbackForm">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" id="name" />
+      <span class="error" id="nameError"></span>
+    </div>
+
+    <div class="form-group">
+      <label for="password">Password:</label>
+      <input type="password" id="password" />
+      <span class="error" id="passwordError"></span>
+    </div>
+
+    <div class="form-group">
+      <label for="comments">Comments:</label>
+      <textarea id="comments" rows="4"></textarea>
+      <span class="error" id="commentsError"></span>
+    </div>
+
+    <button type="submit">Submit</button>
+    <p class="success" id="successMsg"></p>
+  </form>
+
+  <script>
+    document.getElementById("feedbackForm").addEventListener("submit", function(event) {
+      event.preventDefault(); // Stop form from submitting
+
+      // Get input values
+      const name = document.getElementById("name").value.trim();
+      const password = document.getElementById("password").value;
+      const comments = document.getElementById("comments").value.trim();
+
+      // Error message elements
+      const nameError = document.getElementById("nameError");
+      const passwordError = document.getElementById("passwordError");
+      const commentsError = document.getElementById("commentsError");
+      const successMsg = document.getElementById("successMsg");
+
+      // Reset previous errors
+      nameError.textContent = "";
+      passwordError.textContent = "";
+      commentsError.textContent = "";
+      successMsg.textContent = "";
+
+      let valid = true;
+
+      //  Name Validation
+      const nameRegex = /^[A-Za-z\s]+$/;
+      if (name.length < 3 || !nameRegex.test(name)) {
+        nameError.textContent = "❌ Name must be at least 3 letters and contain only letters & spaces.";
+        valid = false;
+      }
+
+      //  Password Validation
+      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+      if (!passwordRegex.test(password)) {
+        passwordError.textContent = "❌ Password must be at least 8 characters and include uppercase, lowercase, number, and special character.";
+        valid = false;
+      }
+
+      //  Comments Validation
+      if (comments.length === 0 || comments.length > 200) {
+        commentsError.textContent = "❌ Comments must not be empty or exceed 200 characters.";
+        valid = false;
+      }
+
+      // ✅ If all valid
+      if (valid) {
+        successMsg.textContent = "✅ Form submitted successfully!";
+        // Optionally, clear form
+        document.getElementById("feedbackForm").reset();
+      }
+    });
+  </script>
+
+</body>
+</html>

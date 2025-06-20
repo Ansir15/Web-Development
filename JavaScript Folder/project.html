@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GymBuddy</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background-color: #0c0c0c;
+      color: white;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 5%;
+      background-color: #111;
+      flex-wrap: wrap;
+    }
+
+    header h1 span {
+      color: #8b5cf6;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: white;
+      margin: 5px 15px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    nav a:hover {
+      color: #8b5cf6;
+    }
+
+    .join-btn {
+      background-color: #8b5cf6;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      color: white;
+      cursor: pointer;
+    }
+
+    .hero {
+      display: flex;
+      justify-content: space-between;
+      padding: 60px 5%;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .hero-text {
+      max-width: 500px;
+    }
+
+    .hero-text h2 {
+      font-size: 2.5rem;
+    }
+
+    .hero-text h2 span {
+      color: #8b5cf6;
+    }
+
+    .hero-text p {
+      margin: 20px 0;
+      font-size: 1.1rem;
+    }
+
+    .features,
+    .trainers,
+    .pricing,
+    .newsletter,
+    .testimonials {
+      padding: 60px 5%;
+    }
+
+    .features h3,
+    .trainers h3,
+    .pricing h3,
+    .testimonials h3 {
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 2rem;
+    }
+
+    .card-container {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .card {
+      background: #1f1f1f;
+      padding: 20px;
+      border-radius: 10px;
+      margin: 10px;
+      flex: 1;
+      min-width: 250px;
+      transition: transform 0.4s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+    }
+
+    .testimonial-card img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .testimonial-card {
+      text-align: center;
+    }
+
+    .testimonial-card p {
+      margin-top: 15px;
+    }
+
+    .trainer-card {
+      text-align: center;
+    }
+
+    .trainer-card img {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    .pricing-table {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .price-card {
+      background: #1f1f1f;
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      min-width: 250px;
+    }
+
+    .price-card h4 {
+      color: #8b5cf6;
+      font-size: 1.8rem;
+    }
+
+    .price-card ul {
+      list-style: none;
+      padding: 0;
+      margin: 20px 0;
+    }
+
+    .price-card ul li {
+      margin: 10px 0;
+    }
+
+    .newsletter {
+      background-color: #111;
+      padding: 40px 5%;
+      text-align: center;
+    }
+
+    .newsletter input[type="email"] {
+      padding: 10px;
+      width: 300px;
+      margin-right: 10px;
+      border-radius: 5px;
+      border: none;
+    }
+
+    .newsletter button {
+      padding: 10px 20px;
+      background: #8b5cf6;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    #newsletter-msg {
+      margin-top: 10px;
+      font-size: 0.9rem;
+      color: lightgreen;
+    }
+
+    footer {
+      background-color: #0c0c0c;
+      padding: 40px 5%;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    footer div {
+      margin-bottom: 20px;
+    }
+
+    footer div h4 {
+      margin-bottom: 10px;
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none; /* Hidden by default */
+      position: fixed; /* Stay in place */
+      z-index: 1; /* Sit on top */
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgba(0, 0, 0, 0.5); /* Black w/ opacity */
+    }
+
+    .modal-content {
+      background-color: #1f1f1f;
+      margin: 15% auto; /* 15% from the top and centered */
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%; /* Could be more or less, depending on screen size */
+      border-radius: 10px;
+    }
+
+    .close-button {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .close-button:hover,
+    .close-button:focus {
+      color: white;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    /* Payment Modal Styles */
+    .payment-modal {
+      display: none; /* Hidden by default */
+      position: fixed; /* Stay in place */
+      z-index: 1; /* Sit on top */
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgba(0, 0, 0, 0.5); /* Black w/ opacity */
+    }
+
+    .payment-modal-content {
+      background-color: #1f1f1f;
+      margin: 15% auto; /* 15% from the top and centered */
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%; /* Could be more or less, depending on screen size */
+      border-radius: 10px;
+    }
+
+    .payment-modal input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: none;
+    }
+
+    .payment-modal button {
+      background-color: #8b5cf6;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .hero-text {
+        text-align: center;
+      }
+
+      .pricing-table {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Gym<span>Buddy</span></h1>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#programs">Program</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#testimonials">Success Stories</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button class="join-btn">Join Now</button>
+  </header>
+
+  <section class="hero" id="home" data-aos="fade-up">
+    <div class="hero-text">
+      <h2>Push Yourself to <span>Train Your Body</span></h2>
+      <p>We help you unlock your best version. Get fit, stay strong, and join our fitness revolution today.</p>
+      <button class="join-btn" id="startTrainingBtn">Start Training</button>
+      <button class="join-btn" id="howToJoinBtn" style="background:#333">How to Join</button>
+    </div>
+    <img src="bodybuilder.jpg" width="400" style="border-radius:10px" />
+  </section>
+
+  <section class="features" id="programs">
+    <h3>Explore Our Facilities</h3>
+    <div class="card-container">
+      <div class="card" data-aos="fade-right">Cardio Stretching</div>
+      <div class="card" data-aos="fade-up">Fat Loss</div>
+      <div class="card" data-aos="fade-up">Weight Lifting</div>
+      <div class="card" data-aos="fade-left">Running</div>
+    </div>
+  </section>
+
+  <section class="trainers">
+    <h3>Get To Know Our Team</h3>
+    <div class="card-container">
+      <div class="card trainer-card" data-aos="zoom-in">
+        <img src="https://images.pexels.com/photos/414029/pexels-photo-414029.jpeg" alt="Trainer" />
+        <h4>Steve Holand</h4>
+      </div>
+      <div class="card trainer-card" data-aos="zoom-in">
+        <img src="https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg" alt="Trainer" />
+        <h4>Shifat Ahmed</h4>
+      </div>
+      <div class="card trainer-card" data-aos="zoom-in">
+        <img src="https://images.pexels.com/photos/3253501/pexels-photo-3253501.jpeg" alt="Trainer" />
+        <h4>Tom Miles</h4>
+      </div>
+    </div>
+  </section>
+
+  <section class="pricing" id="pricing">
+    <h3>Pricing</h3>
+    <div class="pricing-table">
+      <div class="price-card" data-aos="flip-left">
+        <h4>Standard</h4>
+        <p>$120/Month</p>
+        <ul>
+          <li>✓ Access to gym</li>
+          <li>✓ Cardio & Stretching</li>
+          <li>✓ Trainer Guidance</li>
+        </ul>
+        <button class="join-btn" onclick="openPaymentModal('Standard', 120)">Start Your Trial</button>
+      </div>
+      <div class="price-card" data-aos="flip-left">
+        <h4>Premium</h4>
+        <p>$169/Month</p>
+        <ul>
+          <li>✓ All Standard Features</li>
+          <li>✓ Weight Training</li>
+          <li>✓ Personal Trainer</li>
+        </ul>
+        <button class="join-btn" onclick="openPaymentModal('Premium', 169)">Start Your Trial</button>
+      </div>
+      <div class="price-card" data-aos="flip-left">
+        <h4>Basic</h4>
+        <p>$99/Month</p>
+        <ul>
+          <li>✓ Gym Access</li>
+          <li>✓ Support</li>
+          <li>✓ Diet Plan</li>
+        </ul>
+        <button class="join-btn" onclick="openPaymentModal('Basic', 99)">Start Your Trial</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="testimonials" id="testimonials">
+    <h3>Success Stories</h3>
+    <div class="card-container">
+      <div class="card testimonial-card">
+        <img src="https://images.pexels.com/photos/1704488/pexels-photo-1704488.jpeg" alt="Sarah Khan">
+        <p>"I lost 15kg in 3 months with GymBuddy!"<br><strong>- Sarah Khan</strong></p>
+      </div>
+      <div class="card testimonial-card">
+        <img src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg" alt="Ali Raza">
+        <p>"Best decision I ever made for my health."<br><strong>- Ali Raza</strong></p>
+      </div>
+      <div class="card testimonial-card">
+        <img src="https://images.pexels.com/photos/1130626/pexels-photo-1130626.jpeg" alt="Amina Sheikh">
+        <p>"Premium plan changed my lifestyle completely."<br><strong>- Amina Sheikh</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="newsletter" id="contact">
+    <h3>Sign up for our Newsletter</h3>
+    <input type="email" id="email" placeholder="Enter your Email...">
+    <button onclick="subscribeNewsletter()">Notify</button>
+    <p id="newsletter-msg"></p>
+  </section>
+
+  <footer>
+    <div>
+      <h2>Gym<span>Buddy</span></h2>
+      <p>Discipline. Strength. Results.</p>
+      <div>
+        <i class="fab fa-facebook"></i>
+        <i class="fab fa-instagram"></i>
+        <i class="fab fa-twitter"></i>
+      </div>
+    </div>
+    <div>
+      <h4>Explore</h4>
+      <p><a href="#programs">Programs</a></p>
+      <p><a href="#pricing">Pricing</a></p>
+    </div>
+    <div>
+      <h4>email.com</h4>
+      <p><a href="#blog">ansir@gmail.com</a></p>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <p><a href="#contact">Contact Us</a></p>
+      <p>+1-234-3445-8769</p>
+    </div>
+    <div>
+      <h4>Legal</h4>
+      <p>Terms & Conditions</p>
+      <p>Privacy Policy</p>
+    </div>
+  </footer>
+
+  <!-- Modal Structure for User Info -->
+  <div id="infoModal" class="modal">
+    <div class="modal-content">
+      <span class="close-button">&times;</span>
+      <h2>Join Us!</h2>
+      <p>Please enter your details to get started:</p>
+      <input type="text" id="name" placeholder="Your Name" required>
+      <input type="email" id="modal-email" placeholder="Your Email" required>
+      <button id="submit-info">Submit</button>
+      <p id="modal-msg"></p>
+    </div>
+  </div>
+
+  <!-- Modal Structure for Payment -->
+  <div id="paymentModal" class="payment-modal">
+    <div class="payment-modal-content">
+      <span class="close-button" onclick="closePaymentModal()">&times;</span>
+      <h2>Payment Information</h2>
+      <p id="selected-plan"></p>
+      <input type="text" id="card-name" placeholder="Cardholder Name" required>
+      <input type="text" id="card-number" placeholder="Card Number" required>
+      <input type="text" id="expiry-date" placeholder="MM/YY" required>
+      <input type="text" id="cvv" placeholder="CVV" required>
+      <button id="pay-button">Pay Now</button>
+      <p id="payment-msg"></p>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init();
+
+    function subscribeNewsletter() {
+      const email = document.getElementById('email').value;
+      const msg = document.getElementById('newsletter-msg');
+      if (email.trim() === '' || !email.includes('@')) {
+        msg.style.color = 'red';
+        msg.innerText = 'Please enter a valid email.';
+        return;
+      }
+      localStorage.setItem('newsletterEmail', email);
+      msg.innerText = 'Thanks for subscribing!';
+    }
+
+    document.querySelectorAll('nav a').forEach(link => {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        const section = document.querySelector(this.getAttribute('href'));
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+
+    // Modal functionality for user info
+    const infoModal = document.getElementById("infoModal");
+    const startTrainingBtn = document.getElementById("startTrainingBtn");
+    const howToJoinBtn = document.getElementById("howToJoinBtn");
+    const closeButton = document.querySelector(".close-button");
+    const submitButton = document.getElementById("submit-info");
+
+    startTrainingBtn.addEventListener("click", function() {
+      infoModal.style.display = "block";
+    });
+
+    howToJoinBtn.addEventListener("click", function() {
+      infoModal.style.display = "block";
+    });
+
+    closeButton.addEventListener("click", function() {
+      infoModal.style.display = "none";
+    });
+
+    window.addEventListener("click", function(event) {
+      if (event.target === infoModal) {
+        infoModal.style.display = "none";
+      }
+    });
+
+    submitButton.addEventListener("click", function() {
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("modal-email").value;
+      const msg = document.getElementById("modal-msg");
+
+      if (name.trim() === '' || email.trim() === '' || !validateEmail(email)) {
+    msg.style.color = 'red';
+    msg.innerText = 'Please enter valid details.';
+    return;
+  }
+
+  msg.style.color = 'lightgreen';
+  msg.innerText = 'Thanks for your submission, ' + name + '!';
+  setTimeout(() => {
+    infoModal.style.display = "none";
+  }, 2000);
+});
+
+function validateEmail(email) {
+  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return re.test(String(email).toLowerCase());
+}
+
+// Function to open the payment modal
+function openPaymentModal(planName, planPrice) {
+  const paymentModal = document.getElementById("paymentModal");
+  const selectedPlan = document.getElementById("selected-plan");
+  selectedPlan.innerText = `You have selected the ${planName} plan for $${planPrice}/Month.`;
+  paymentModal.style.display = "block";
+}
+
+// Function to close the payment modal
+function closePaymentModal() {
+  const paymentModal = document.getElementById("paymentModal");
+  paymentModal.style.display = "none";
+}
+
+// Payment submission logic
+document.getElementById("pay-button").addEventListener("click", function() {
+  const cardName = document.getElementById("card-name").value;
+  const cardNumber = document.getElementById("card-number").value;
+  const expiryDate = document.getElementById("expiry-date").value;
+  const cvv = document.getElementById("cvv").value;
+  const paymentMsg = document.getElementById("payment-msg");
+
+  // Simple validation for payment fields
+  if (cardName.trim() === '' || cardNumber.trim() === '' || expiryDate.trim() === '' || cvv.trim() === '') {
+    paymentMsg.style.color = 'red';
+    paymentMsg.innerText = 'Please fill in all fields.';
+    return;
+  }
+
+  // Here you can handle the payment processing logic (e.g., API call)
+  paymentMsg.style.color = 'lightgreen';
+  paymentMsg.innerText = 'Payment successful! Thank you for joining GymBuddy!';
+  
+  // Optionally close the modal after a short delay
+  setTimeout(() => {
+    closePaymentModal();
+  }, 2000);
+});
+</script>
+</body>
+
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>javaScript</title>
+</head>
+<body> 
+    <script>
+        // const Students=[
+        //     { name:"Ansir",marks:80},
+        //     { name: "Ali", marks: 72 },
+        //     { name: "Samar", marks: 58 },
+        //     ];
+        //     for(let Student of Students){
+        //         let grade;
+        //         if(Student.marks >=80){
+        //             grade="A";
+        //         }
+        //         else if(Student.marks >=72){
+        //             grade="B";
+        //         }
+        //         else{
+        //             grade="fail";
+        //         }
+        //         console.log(`${Student.marks}: ${grade}`);
+        //     }
+        //     Students.push({name: "Ahamd",marks:67});
+        //     console.log("\nAfter adding a new student:");
+        //     console.log(Students);
+
+        //     Students.pop({ name: "Ali", marks: 72});
+        //     console.log("\nAfter removing a new student:");
+        //     console.log(Students);
+
+        //     const passedStudent=Students.filter(Student=>Student.marks);
+
+        //     for(let Student of passedStudent){
+        //         console.log(`${Student.name}: ${Student.marks}`);
+        //     }
+
+        function add(a,b){
+            return a+b;
+        }
+        let sum=add(3,5);
+        console.log(sum);
+
+
+        function name(name){
+            console.log("Hello, " + name + "!");
+        }
+        name("Ansir");
+
+        function calculator(num1, num2, operation) {
+    switch(operation) {
+        case 'add':
+            return num1 + num2;
+        case 'subtract':
+            return num1 - num2;
+        case 'multiply':
+            return num1 * num2;
+        case 'divide':
+            if (num2 !== 0) {
+                return num1 / num2;
+            } else {
+                return "error";
+            }
+        default:
+            return "invalid input";
+    }
+}
+
+let num1 = parseInt(prompt("Enter first number"));
+let num2 = parseInt(prompt("Enter second number"));
+let operation = prompt("Enter the operator (add, subtract, multiply, divide)");
+
+let result = calculator(num1, num2, operation);
+alert("Output: " + result);
+
+</script>
+</body>
+</html>
