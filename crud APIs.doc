@@ -1,0 +1,108 @@
+<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'><title>Text To Word</title></head><body><p>const mongoose = require('mongoose');</p>
+<p>const express = require('express');</p>
+<p>const stu = require('./student');</p>
+<p>const bodyParser = require('body-parser');</p>
+<p>const app = express();</p>
+<p>const port = 3000;</p>
+<p>const db = require('./db');</p>
+<p>&nbsp;</p>
+<p>app.use(bodyParser.json());</p>
+<p>&nbsp;</p>
+<p>app.listen(port, () =&gt; {</p>
+<p>&nbsp; &nbsp; console.log("Server Connected on Port", port);</p>
+<p>});</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>// -------------------------------------------</p>
+<p>// POST &mdash; CREATE STUDENT</p>
+<p>// URL (POST): http://localhost:3000/student</p>
+<p>// -------------------------------------------</p>
+<p>app.post('/student', async (req, resp) =&gt; {</p>
+<p>&nbsp; &nbsp; try {</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; const students = new stu(req.body);</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; await students.save();</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; resp.status(200).json(students);</p>
+<p>&nbsp; &nbsp; } catch (err) {</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; resp.status(500).json({ error: err.message });</p>
+<p>&nbsp; &nbsp; }</p>
+<p>});</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>// -------------------------------------------</p>
+<p>// GET &mdash; ALL STUDENTS</p>
+<p>// URL (GET): http://localhost:3000/getStudents</p>
+<p>// -------------------------------------------</p>
+<p>app.get('/getStudents', async (req, resp) =&gt; {</p>
+<p>&nbsp; &nbsp; try {</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; const student = await stu.find();</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; resp.status(200).json(student);</p>
+<p>&nbsp; &nbsp; } catch (err) {</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; resp.status(500).json({ error: err.message });</p>
+<p>&nbsp; &nbsp; }</p>
+<p>});</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>// -------------------------------------------</p>
+<p>// GET &mdash; STUDENT BY NAME</p>
+<p>// URL (GET): http://localhost:3000/getbyname/Arham</p>
+<p>// -------------------------------------------</p>
+<p>app.get('/getbyname/:name', async (req, resp) =&gt; {</p>
+<p>&nbsp; &nbsp; try {</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; const result = await stu.findOne({ name: req.params.name });</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; resp.status(200).json(result);</p>
+<p>&nbsp; &nbsp; } catch (err) {</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; resp.status(500).json({ error: err.message });</p>
+<p>&nbsp; &nbsp; }</p>
+<p>});</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>// -------------------------------------------</p>
+<p>// GET &mdash; AGE LESS THAN OR EQUAL (&le;)</p>
+<p>// URL (GET): http://localhost:3000/getGreaterAge30/30</p>
+<p>// -------------------------------------------</p>
+<p>app.get("/getGreaterAge30/:age", async (req, resp) =&gt; {</p>
+<p>&nbsp; &nbsp; try {</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; const getAge = await stu.find({ age: { $lte: req.params.age } });</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; resp.status(200).json(getAge);</p>
+<p>&nbsp; &nbsp; } catch (err) {</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; resp.status(500).json({ error: err.message });</p>
+<p>&nbsp; &nbsp; }</p>
+<p>});</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>// -------------------------------------------</p>
+<p>// PUT &mdash; UPDATE STUDENT BY CUSTOM id FIELD</p>
+<p>// URL (PUT): http://localhost:3000/updateBy/101</p>
+<p>// -------------------------------------------</p>
+<p>app.put("/updateBy/:id", async (req, resp) =&gt; {</p>
+<p>&nbsp; &nbsp; try {</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; const studentUpdate = await stu.findOneAndUpdate(</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; { id: req.params.id},&nbsp; &nbsp;</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; req.body,</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; { new: true, runValidators: true }</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; );</p>
+<p>&nbsp;</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; if (!studentUpdate) {</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; return resp.status(404).json({ message: "Student not found" });</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; }</p>
+<p>&nbsp;</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; resp.status(200).json(studentUpdate);</p>
+<p>&nbsp;</p>
+<p>&nbsp; &nbsp; } catch (err) {</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; resp.status(500).json({ error: err.message });</p>
+<p>&nbsp; &nbsp; }</p>
+<p>});</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>// -------------------------------------------</p>
+<p>// DELETE &mdash; STUDENT BY NAME</p>
+<p>// URL (DELETE): http://localhost:3000/deleteStudentname/Arham</p>
+<p>// -------------------------------------------</p>
+<p>app.delete("/deleteStudentname/:name", async (req, resp) =&gt; {</p>
+<p>&nbsp; &nbsp; try {</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; const student = await stu.deleteOne({ name: req.params.name });</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; resp.status(200).json(student);</p>
+<p>&nbsp; &nbsp; } catch (err) {</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; resp.status(500).json({ error: err.message });</p>
+<p>&nbsp; &nbsp; }</p>
+<p>});</p></body></html>
